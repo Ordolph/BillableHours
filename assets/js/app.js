@@ -17,11 +17,7 @@ $(document).ready(function () {
     let startDate;
     let monthlyRate;
 
-    function getNumberOfMonths(){
-        moment(unixTimestamp)
-    }
-
-    database.ref().on("child_added", function(childSnapshot) {
+    database.ref().on("child_added", function (childSnapshot) {
 
         let childS = childSnapshot.val();
         let convertedStartDate = moment(childS.startDate)
@@ -37,7 +33,7 @@ $(document).ready(function () {
         let tableTotalBill = $("<td>").text(totalBill);
 
         $("#table").append(newRow, [tableRowName, tableRole, tableStartDate, tableMonths, tableMonthlyRate, tableTotalBill])
-     })
+    })
 
     $("#submitBtn").on("click", function (event) {
 
