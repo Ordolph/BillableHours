@@ -17,18 +17,26 @@ $(document).ready(function () {
     let startDate;
     let monthlyRate;
 
+    function getNumberOfMonths(){
+        moment(unixTimestamp)
+    }
+
     database.ref().on("child_added", function(childSnapshot) {
 
-
         let childS = childSnapshot.val();
+        let convertedStartDate = moment(childS.startDate)
+        console.log(convertedStartDate);
+        let months = moment().diff(convertedStartDate, "months");
         let newRow = $("<tr>");
         let tableRowName = $("<th>").attr("scope", "row").text(childS.name);
         let tableRole = $("<td>").text(childS.role);
         let tableStartDate = $("<td>").text(childS.startDate);
-        let tableMonths;
+        let tableMonths = $("<td>").text(months);
         let tableMonthlyRate = $("<td>").text(childS.monthlyRate);
+        let totalBill = months * childS.monthlyRate
+        let tableTotalBill = $("<td>").text(totalBill);
 
-        $("#table").append(newRow, [tableRowName, tableRole, tableStartDate, tableMonthlyRate])
+        $("#table").append(newRow, [tableRowName, tableRole, tableStartDate, tableMonths, tableMonthlyRate, tableTotalBill])
      })
 
     $("#submitBtn").on("click", function (event) {
