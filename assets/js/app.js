@@ -17,6 +17,20 @@ $(document).ready(function () {
     let startDate;
     let monthlyRate;
 
+    database.ref().on("child_added", function(childSnapshot) {
+
+
+        let childS = childSnapshot.val();
+        let newRow = $("<tr>");
+        let tableRowName = $("<th>").attr("scope", "row").text(childS.name);
+        let tableRole = $("<td>").text(childS.role);
+        let tableStartDate = $("<td>").text(childS.startDate);
+        let tableMonths;
+        let tableMonthlyRate = $("<td>").text(childS.monthlyRate);
+
+        $("#table").append(newRow, [tableRowName, tableRole, tableStartDate, tableMonthlyRate])
+     })
+
     $("#submitBtn").on("click", function (event) {
 
         event.preventDefault();
